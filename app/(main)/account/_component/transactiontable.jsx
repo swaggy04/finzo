@@ -4,16 +4,26 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { format } from 'date-fns';
-import { Ghost, MoreHorizontalIcon } from 'lucide-react';
+import { ChevronDown, ChevronUp, Ghost, MoreHorizontalIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Transactiontable = ({ transactions }) => {
+
+  const [sortingFn, setsortingFn] = useState({
+    field: "date",
+    direction: "desc"
+  })
 
   const router = useRouter()
   const allTransaction = transactions;
 
-  const handleSort = () => { };
+  const handleSort = (field) => {
+    setsortingFn(current => ({
+      field,
+      direction: current.field === field && current.direction === "asc" ? "desc" : "asc"
+    }))
+  };
 
   return (
     <div className="mt-7">
@@ -25,14 +35,35 @@ const Transactiontable = ({ transactions }) => {
                 <Checkbox />
               </TableHead>
               <TableHead className="cursor-pointer" onClick={() => handleSort("date")}>
-                Date
+                <div className='flex items-center'>
+                  Date {" "}
+                  {sortingFn.field === "date" &&
+                    (sortingFn.direction === "asc" ?
+                      (<ChevronUp className="ml-1 h-4 w-4" />)
+                      :
+                      (<ChevronDown className='ml-1 h-4 w-4' />))}
+                </div>
               </TableHead>
               <TableHead>Description</TableHead>
               <TableHead className="cursor-pointer" onClick={() => handleSort("category")}>
-                Category
+                <div className='flex items-center'>
+                  category {" "}
+                  {sortingFn.field === "category" &&
+                    (sortingFn.direction === "asc" ?
+                      (<ChevronUp className="ml-1 h-4 w-4" />)
+                      :
+                      (<ChevronDown className='ml-1 h-4 w-4' />))}
+                </div>
               </TableHead>
               <TableHead className="cursor-pointer" onClick={() => handleSort("amount")}>
-                Amount
+                <div className='flex items-center'>
+                  Amount {" "}
+                  {sortingFn.field === "amount" &&
+                    (sortingFn.direction === "asc" ?
+                      (<ChevronUp className="ml-1 h-4 w-4" />)
+                      :
+                      (<ChevronDown className='ml-1 h-4 w-4' />))}
+                </div>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -52,25 +83,25 @@ const Transactiontable = ({ transactions }) => {
                   <TableCell>{format(new Date(transaction.date), "PP")}</TableCell>
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.category}</TableCell>
-                  <TableCell className="text-right font-medium" style={{ color: transaction.type === "EXPENSE" ? "red" : "green", }}>
+                  <TableCell className="text-center font-medium" style={{ color: transaction.type === "EXPENSE" ? "red" : "green", }}>
                     {transaction.type === "EXPENSE" ? "-" : "+"}
                     {transaction.amount.toFixed(2)}</TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
-                          <MoreHorizontalIcon className='h-3 w-3'/>
+                          <MoreHorizontalIcon className='h-3 w-3' />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuLabel
-                          // onClick={()=>{
-                          //   router.push(`/transaction/create?edit=${transaction.id}`);
-                          // }}
+                        // onClick={()=>{
+                        //   router.push(`/transaction/create?edit=${transaction.id}`);
+                        // }}
                         >Edit</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem 
-                        className='text-destructive' onClick={()=>deletefn([transaction.id])}>Delete</DropdownMenuItem>
+                        <DropdownMenuItem
+                          className='text-destructive' onClick={() => deletefn([transaction.id])}>Delete</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
