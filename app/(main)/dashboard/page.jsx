@@ -5,11 +5,20 @@ import React from 'react'
 import AccountCard from './_component/AccountCard'
 
 const Dashboard = async () => {
-  const accounts = await getAccounts()
+  const accounts = await getAccounts();
+  
+  const defaultaccount = accounts?.find((account) => account.isDefault);
+
+  let budgetData = null;
+  if(defaultaccount){
+    await currentbudget(defaultaccount.id)
+
+  }
   
 
   return (
     <div>
+
 
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 mt-10'>
         {accounts?.length > 0 && accounts.map((account) => (
