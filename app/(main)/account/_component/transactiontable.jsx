@@ -85,7 +85,7 @@ const Transactiontable = ({ transactions }) => {
                   <TableCell>{transaction.category}</TableCell>
                   <TableCell className="text-center font-medium" style={{ color: transaction.type === "EXPENSE" ? "red" : "green", }}>
                     {transaction.type === "EXPENSE" ? "-" : "+"}
-                    {transaction.amount.toFixed(2)}</TableCell>
+                    ₹{transaction.amount.toFixed(2)}</TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
