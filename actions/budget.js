@@ -15,8 +15,12 @@ export async function getcurrentbudget(accountId){
         })
         if(!user) throw new Error ("user not found");
 
+        const budget = await db.budget.findFirst({
+            where:{
+                userId:user.id
+            }
+        })
 
-        
 
 
     } catch (error) {
