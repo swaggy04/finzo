@@ -20,6 +20,7 @@ const Dashboard = async () => {
 
   return (
     <div>
+      {/*progress budget*/ }
       {defaultaccount && <BudgetProgress
         initaial_budget={budgetData?.budget}
         currentbudget={budgetData?.currentExpenses || 0}
