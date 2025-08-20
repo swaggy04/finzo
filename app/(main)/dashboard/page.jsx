@@ -3,7 +3,7 @@ import { getAccounts } from '@/actions/dashboard'
 import PopupForm from '@/components/popup'
 import React from 'react'
 import AccountCard from './_component/AccountCard'
-import {BudgetProgress} from './_component/budgetProgress'
+import BudgetProgress from './_component/budgetProgress'
 import { currentbudget } from '@/actions/budget'
 
 const Dashboard = async () => {
@@ -22,7 +22,7 @@ const Dashboard = async () => {
     <div>
       {/*progress budget*/ }
       {defaultaccount && <BudgetProgress
-        initaial_budget={budgetData?.budget}
+        initialbudget={budgetData?.budget}
         currentbudget={budgetData?.currentExpenses || 0}
       />}
 

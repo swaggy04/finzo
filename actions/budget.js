@@ -3,7 +3,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server"
 
-export async function getcurrentbudget(accountId) {
+export async function currentbudget(accountId) {
     try {
         const { userId } = await auth();
         if (!userId) throw new Error("unauthorised");
@@ -52,7 +52,7 @@ export async function getcurrentbudget(accountId) {
 
         return {
             budget: budget ? { ...budget, amount: budget.amount.toNumber() } : null,
-            currentExpenses: expenses._sum.amount
+            currentExpenses: expense._sum.amount
                 ? expense._sum.amount.toNumber()
                 : 0,
         }
