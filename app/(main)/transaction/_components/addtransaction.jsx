@@ -38,10 +38,10 @@ const AddTransactionForm = ({ accounts, categories }) => {
 
 
     return (
-        <form className=" bg-amber-50 text-black  w-4xl flex flex-col p-6 rounded-lg shadow-md mx-auto my-10">
-            <div className="space-y-3">
-                <label className="text-sm font-bold  bg-amber-200  ">Type</label>
-                <Select onvalueChange={(value)=>setValue("type",value)} defaultValue={(watch("type"))} className="mt-3">
+        <form className="w-2xl flex flex-col p-6 rounded-lg shadow-md mx-auto my-10 border border-amber-200">
+            <div className="flex flex-col space-y-2 ">
+                <label className="text-md font-bold">Type</label>
+                <Select onvalueChange={(value) => setValue("type", value)} defaultValue={(watch("type"))}  className="rounded-md border border-neutral-800">
                     <SelectTrigger className="w-full" >
                         <SelectValue placeholder="Type" />
                     </SelectTrigger>
@@ -52,16 +52,37 @@ const AddTransactionForm = ({ accounts, categories }) => {
                 </Select>
                 {errors.type && <p className="text-sm text-red-500">{errors.type.message}</p>}
             </div>
-            <div className="space-y-3">
-                <label className="text-sm font-bold  bg-amber-200  ">Type</label>
-                <Input
-                type="number"
-                step="0.01"
-                placeholder="Amount"
-                {...register("amount")}
-                />
-            
-                {errors.type && <p className="text-sm text-red-500">{errors.type.message}</p>}
+            <div className="grid grid-cols-2 gap-5 mt-5 md:">
+                <div className="flex flex-col space-y-2">
+                    <label className="text-md font-bold">Amount</label>
+                    <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="Amount"
+                        {...register("amount")}
+                        
+                    />
+
+                    {errors.type && <p className="text-sm text-red-500">{errors.amount.message}</p>}
+                </div>
+                <div className="flex flex-col space-y-2">
+                    <label className="text-md font-bold ">Account</label>
+                    <Select onvalueChange={(value) => setValue("accountId", value)} defaultValue={(getValues("accountId"))} className="mt-3">
+                        <SelectTrigger className="w-full" >
+                            <SelectValue placeholder="Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {
+                                accounts.map((account)=>(
+                                    <SelectItem key={account.id} value={account.id}>
+                                        {account.name} (₹{parseFloat(account.balance).toFixed(2)})
+                                    </SelectItem>
+                                ))
+                            }
+                        </SelectContent>
+                    </Select>
+                    {errors.type && <p className="text-sm text-red-500">{errors.type.message}</p>}
+                </div>
             </div>
         </form>
     )
