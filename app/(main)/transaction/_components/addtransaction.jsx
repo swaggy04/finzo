@@ -38,7 +38,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
 
 
     return (
-        <form className="w-2xl flex flex-col p-6 rounded-lg shadow-md mx-auto my-10 border border-amber-200">
+        <form className="w-2xl flex flex-col p-6 rounded-lg shadow-md mx-auto my-10 bg-neutral-900">
             <div className="flex flex-col space-y-2 ">
                 <label className="text-md font-bold">Type</label>
                 <Select onvalueChange={(value) => setValue("type", value)} defaultValue={(watch("type"))}  className="rounded-md border border-neutral-800">
@@ -63,7 +63,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
                         
                     />
 
-                    {errors.type && <p className="text-sm text-red-500">{errors.amount.message}</p>}
+                    {errors.amount && <p className="text-sm text-red-500">{errors.amount.message}</p>}
                 </div>
                 <div className="flex flex-col space-y-2">
                     <label className="text-md font-bold ">Account</label>
@@ -81,7 +81,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
                             }
                         </SelectContent>
                     </Select>
-                    {errors.type && <p className="text-sm text-red-500">{errors.type.message}</p>}
+                    {errors.accountId && <p className="text-sm text-red-500">{errors.accountId.message}</p>}
                 </div>
             </div>
         </form>
